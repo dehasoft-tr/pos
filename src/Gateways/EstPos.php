@@ -603,7 +603,7 @@ class EstPos extends AbstractGateway
             'currency' => (string) $raw3DAuthResponseData['currency'],
             //'tx_status' => (string) $raw3DAuthResponseData['txstatus'],
             //'eci' => (string) $raw3DAuthResponseData['eci'],
-            'cavv' => (string) $raw3DAuthResponseData['cavv'],
+            //'cavv' => (string) $raw3DAuthResponseData['cavv'],
             'xid' => (string) $raw3DAuthResponseData['xid'],
             'md_error_message' => (string) $raw3DAuthResponseData['mdErrorMsg'],
             'name' => (string) $raw3DAuthResponseData['firmaadi'],
