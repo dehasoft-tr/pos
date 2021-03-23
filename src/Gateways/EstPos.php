@@ -186,7 +186,12 @@ class EstPos extends AbstractGateway
      */
     public function make3DHostPayment()
     {
-        throw new NotImplementedException();
+        $request = Request::createFromGlobals();
+
+        $this->response = $this->map3DHostingResponseData($request->request->all());
+
+        return $this;
+        //throw new NotImplementedException();
     }
 
     /**
@@ -559,6 +564,51 @@ class EstPos extends AbstractGateway
             'campaign_url' => null,
             'extra' => $raw3DAuthResponseData['Extra'],
             'all' => $raw3DAuthResponseData,
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function map3DHostingResponseData($raw3DAuthResponseData)
+    {
+        $status = 'declined';
+
+        if ($this->check3DHash($raw3DAuthResponseData) && $raw3DAuthResponseData['ProcReturnCode'] === '00') {
+            if (in_array($raw3DAuthResponseData['mdStatus'], [1, 2, 3, 4])) {
+                $status = 'approved';
+            }
+        }
+
+        $transactionSecurity = 'MPI fallback';
+        if ('approved' === $status) {
+            if ($raw3DAuthResponseData['mdStatus'] == '1') {
+                $transactionSecurity = 'Full 3D Secure';
+            } elseif (in_array($raw3DAuthResponseData['mdStatus'], [2, 3, 4])) {
+                $transactionSecurity = 'Half 3D Secure';
+            }
+        }
+
+       return (object) [
+            'transaction_security' => $transactionSecurity,
+            'md_status' => $raw3DAuthResponseData['mdStatus'],
+            'hash' => (string) $raw3DAuthResponseData['HASH'],
+            'rand' => (string) $raw3DAuthResponseData['rnd'],
+            'hash_params' => (string) $raw3DAuthResponseData['HASHPARAMS'],
+            'hash_params_val' => (string) $raw3DAuthResponseData['HASHPARAMSVAL'],
+            'masked_number' => (string) $raw3DAuthResponseData['maskedCreditCard'],
+            'month' => (string) $raw3DAuthResponseData['Ecom_Payment_Card_ExpDate_Month'],
+            'year' => (string) $raw3DAuthResponseData['Ecom_Payment_Card_ExpDate_Year'],
+            'amount' => (string) $raw3DAuthResponseData['amount'],
+            'currency' => (string) $raw3DAuthResponseData['currency'],
+            //'tx_status' => (string) $raw3DAuthResponseData['txstatus'],
+            'eci' => (string) $raw3DAuthResponseData['eci'],
+            'cavv' => (string) $raw3DAuthResponseData['cavv'],
+            'xid' => (string) $raw3DAuthResponseData['xid'],
+            'md_error_message' => (string) $raw3DAuthResponseData['mdErrorMsg'],
+            'name' => (string) $raw3DAuthResponseData['firmaadi'],
+            'email' => (string) $raw3DAuthResponseData['Email'],
+            '3d_all' => $raw3DAuthResponseData,
         ];
     }
 
