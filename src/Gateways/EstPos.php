@@ -115,6 +115,8 @@ class EstPos extends AbstractGateway
             $hashStr = $this->account->getClientId() . $this->order->id . $this->order->amount . $this->order->success_url . $this->order->fail_url . $this->order->rand . $this->account->getStoreKey();
         } elseif ($this->account->getModel() === '3d_pay') {
             $hashStr = $this->account->getClientId() . $this->order->id . $this->order->amount . $this->order->success_url . $this->order->fail_url . $this->type . $this->order->installment . $this->order->rand . $this->account->getStoreKey();
+        } elseif (strtolower($this->account->getModel()) === '3d_payhosting' || strtolower($this->account->getModel()) === '3d_pay_hosting') {
+            $hashStr = $this->account->getClientId() . $this->order->id . $this->order->amount . $this->order->success_url . $this->order->fail_url . $this->type . $this->order->installment . $this->order->rand . $this->account->getStoreKey();
         }
 
         return base64_encode(sha1($hashStr, true));
