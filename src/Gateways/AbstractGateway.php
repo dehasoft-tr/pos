@@ -311,7 +311,7 @@ abstract class AbstractGateway implements PosInterface
             $this->make3DPayment();
         } elseif ('3d_pay' === $model) {
             $this->make3DPayPayment();
-        } elseif ('3d_host' === $model) {
+        } elseif ('3d_host' === $model || '3d_payhosting' === strtolower($model) || '3d_pay_hosting' === strtolower($model)) {
             $this->make3DHostPayment();
         } else {
             throw new UnsupportedPaymentModelException();
