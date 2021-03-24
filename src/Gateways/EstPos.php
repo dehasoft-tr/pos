@@ -215,7 +215,7 @@ class EstPos extends AbstractGateway
                 'Ecom_Payment_Card_ExpDate_Month' => $this->card->getExpireMonth(),
                 'Ecom_Payment_Card_ExpDate_Year' => $this->card->getExpireYear(),
                 'cv2' => $this->card->getCvv(),
-                'firmaadi' => $this->order->name,
+                'firmaadi' => $this->order->companyName,
                 'Email' => $this->order->email,
                 'amount' => $this->order->amount,
                 'oid' => $this->order->id,
@@ -226,10 +226,11 @@ class EstPos extends AbstractGateway
                 'currency' => $this->order->currency,
             ];
 
-            if ($this->account->getModel() === '3d_pay') {
+            if ($this->account->getModel() === '3d_pay' || strtolower($this->account->getModel()) === '3d_payhosting') {
                 $inputs = array_merge($inputs, [
                     'islemtipi' => $this->type,
                     'taksit' => $this->order->installment,
+                    'name' => $this->order->name
                 ]);
             }
 
