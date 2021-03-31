@@ -576,10 +576,11 @@ class EstPos extends AbstractGateway
     protected function map3DHostingResponseData($raw3DAuthResponseData)
     {
         $status = 'declined';
-
-        if ($this->check3DHash($raw3DAuthResponseData) && $raw3DAuthResponseData['ProcReturnCode'] === '00') {
-            if (in_array($raw3DAuthResponseData['mdStatus'], [1, 2, 3, 4])) {
-                $status = 'approved';
+        if(array_key_exists("ProcReturnCode", $raw3DAuthResponseData)){
+            if ($this->check3DHash($raw3DAuthResponseData) && $raw3DAuthResponseData['ProcReturnCode'] === '00') {
+                if (in_array($raw3DAuthResponseData['mdStatus'], [1, 2, 3, 4])) {
+                    $status = 'approved';
+                }
             }
         }
 
