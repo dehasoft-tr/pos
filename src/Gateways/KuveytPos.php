@@ -155,7 +155,7 @@ class KuveytPos extends AbstractGateway
      */
     public function createXML(array $data, $encoding = 'UTF-8'): string
     {
-        return parent::createXML(['GVPSRequest' => $data], $encoding);
+        return parent::createXML(['KuveytTurkVPosMessage' => $data], $encoding);
     }
 
     /**
