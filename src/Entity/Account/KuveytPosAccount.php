@@ -9,7 +9,7 @@ class KuveytPosAccount extends AbstractPosAccount
     /**
      * @var string
      */
-   // private $terminalId;
+    private $terminalId;
     /**
      * @var string
      */
@@ -26,14 +26,14 @@ class KuveytPosAccount extends AbstractPosAccount
         string $username,
         string $password,
         string $lang,
-        //string $terminalId,
+        string $terminalId,
         ?string $storeKey = null,
         ?string $refundUsername = null,
         ?string $refundPassword = null
     ) {
         parent::__construct($bank, $model, $merchantId, $username, $password, $lang, $storeKey);
         $this->model = $model;
-        //$this->terminalId = $terminalId;
+        $this->terminalId = $terminalId;
         $this->refundUsername = $refundUsername;
         $this->refundPassword = $refundPassword;
     }
@@ -57,9 +57,9 @@ class KuveytPosAccount extends AbstractPosAccount
     /**
      * @return string
      */
-//    public function getTerminalId(): string
-//    {
-//        return $this->terminalId;
-//    }
+    public function getTerminalId(): string
+    {
+        return $this->terminalId;
+    }
 
 }
