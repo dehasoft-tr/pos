@@ -3,13 +3,13 @@
 namespace Mews\Pos\Gateways;
 
 use GuzzleHttp\Client;
-use Mews\Pos\Entity\Account\GarantiPosAccount;
-use Mews\Pos\Entity\Card\CreditCardGarantiPos;
+use Mews\Pos\Entity\Account\KuveytPosAccount;
+use Mews\Pos\Entity\Card\CreditCardKuveytPos;
 use Mews\Pos\Exceptions\NotImplementedException;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class GarantiPos
+ * Class KuveytPos
  */
 class KuveytPos extends AbstractGateway
 {
@@ -25,7 +25,7 @@ class KuveytPos extends AbstractGateway
     /**
      * @const string
      */
-    public const NAME = 'GarantiPay';
+    public const NAME = 'KuveytPos';
 
     /**
      * Response Codes
@@ -112,20 +112,20 @@ class KuveytPos extends AbstractGateway
     ];
 
     /**
-     * @var GarantiPosAccount
+     * @var KuveytPosAccount
      */
     protected $account;
 
     /**
-     * @var CreditCardGarantiPos
+     * @var CreditCardKuveytPos
      */
     protected $card;
 
     /**
-     * GarantiPost constructor.
+     * KuveytPost constructor.
      *
      * @param array $config
-     * @param GarantiPosAccount $account
+     * @param KuveytPosAccount $account
      * @param array $currencies
      */
     public function __construct($config, $account, array $currencies = [])
@@ -134,7 +134,7 @@ class KuveytPos extends AbstractGateway
     }
 
     /**
-     * @return GarantiPosAccount
+     * @return KuveytPosAccount
      */
     public function getAccount()
     {
@@ -143,7 +143,7 @@ class KuveytPos extends AbstractGateway
 
 
     /**
-     * @return CreditCardGarantiPos|null
+     * @return CreditCardKuveytPos|null
      */
     public function getCard()
     {
