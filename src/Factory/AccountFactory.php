@@ -8,6 +8,7 @@ use Mews\Pos\Entity\Account\EstPosAccount;
 use Mews\Pos\Entity\Account\GarantiPosAccount;
 use Mews\Pos\Entity\Account\PayForAccount;
 use Mews\Pos\Entity\Account\PosNetAccount;
+use Mews\Pos\Entity\Account\KuveytPosAccount;
 use Mews\Pos\Exceptions\MissingAccountInfoException;
 use Mews\Pos\Gateways\PayForPos;
 
@@ -85,11 +86,11 @@ class AccountFactory
      * @return KuveytPosAccount
      * @throws MissingAccountInfoException
      */
-    public static function createKuveytPosAccount(string $bank, string $clientId, string $username, string $password, string $terminalId, string $model = 'regular', ?string $storeKey = null, ?string $refundUsername = null, ?string $refundPassword = null, string $lang = 'tr'): KuveytPosAccount
+    public static function createKuveytPosAccount(string $bank, string $clientId, string $username, string $password, string $model = 'regular', ?string $storeKey = null, ?string $refundUsername = null, ?string $refundPassword = null, string $lang = 'tr'): KuveytPosAccount
     {
         self::checkParameters($model, $storeKey);
 
-        return new KuveytPosAccount($bank, $model, $clientId, $username, $password, $lang, $terminalId, $storeKey, $refundUsername, $refundPassword);
+        return new KuveytPosAccount($bank, $model, $clientId, $username, $password, $lang, $storeKey, $refundUsername, $refundPassword);
     }
 
 
