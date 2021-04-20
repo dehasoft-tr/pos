@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Mews\Pos\Entity\Account;
 
 
