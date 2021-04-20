@@ -57,9 +57,9 @@ class KuveytPosAccount extends AbstractPosAccount
     /**
      * @return string
      */
-    public function getTerminalId(): string
-    {
-        return $this->terminalId;
-    }
+//    public function getTerminalId(): string
+//    {
+//        return $this->terminalId;
+//    }
 
 }
