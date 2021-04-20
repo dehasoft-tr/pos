@@ -183,7 +183,7 @@ abstract class AbstractGateway implements PosInterface
     {
         $rootNodeName = array_keys($nodes)[0];
         $encoder = new XmlEncoder();
-
+        dd($nodes[$rootNodeName]);
         return $encoder->encode($nodes[$rootNodeName], 'xml', [
             XmlEncoder::ROOT_NODE_NAME => $rootNodeName,
             XmlEncoder::ENCODING => $encoding,
