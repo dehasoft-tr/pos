@@ -269,7 +269,6 @@ class KuveytPos extends AbstractGateway
      */
     public function createRegularPaymentXML()
     {
-        dd($this->card);
         $requestData = [
             'Mode'              => $this->getMode(),
             'Version'           => self::API_VERSION,

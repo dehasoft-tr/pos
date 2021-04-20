@@ -3,7 +3,7 @@
 namespace Mews\Pos\Entity\Card;
 
 /**
- * Class CreditCardGarantiPos
+ * Class CreditCardKuveytPos
  */
 class CreditCardKuveytPos extends AbstractCreditCard
 {
