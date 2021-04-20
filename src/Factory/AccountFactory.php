@@ -71,6 +71,27 @@ class AccountFactory
         return new GarantiPosAccount($bank, $model, $clientId, $username, $password, $lang, $terminalId, $storeKey, $refundUsername, $refundPassword);
     }
 
+    /**
+     * @param string $bank
+     * @param string $clientId
+     * @param string $username
+     * @param string $password
+     * @param string $terminalId
+     * @param string $model
+     * @param string|null $storeKey
+     * @param string|null $refundUsername
+     * @param string|null $refundPassword
+     * @param string $lang
+     * @return KuveytPosAccount
+     * @throws MissingAccountInfoException
+     */
+    public static function createKuveytPosAccount(string $bank, string $clientId, string $username, string $password, string $terminalId, string $model = 'regular', ?string $storeKey = null, ?string $refundUsername = null, ?string $refundPassword = null, string $lang = 'tr'): KuveytPosAccount
+    {
+        self::checkParameters($model, $storeKey);
+
+        return new KuveytPosAccount($bank, $model, $clientId, $username, $password, $lang, $terminalId, $storeKey, $refundUsername, $refundPassword);
+    }
+
 
     /**
      * @param string $bank
