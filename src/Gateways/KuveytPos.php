@@ -270,53 +270,27 @@ class KuveytPos extends AbstractGateway
     public function createRegularPaymentXML()
     {
         $requestData = [
-            'Mode'              => $this->getMode(),
-            'Version'           => self::API_VERSION,
-            'Terminal'          => [
-                'ProvUserID'    => $this->account->getUsername(),
-                'UserID'        => $this->account->getUsername(),
-                'HashData'      => $this->createHashData(),
-                'ID'            => $this->account->getTerminalId(),
-                'MerchantID'    => $this->account->getTerminalId(),
-            ],
-            'Customer'          => [
-                'IPAddress'     => $this->order->ip,
-                'EmailAddress'  => $this->order->email,
-            ],
-            'Card'              => [
-                'Number'        => $this->card->getNumber(),
-                'ExpireDate'    => $this->card->getExpirationDate(),
-                'CVV2'          => $this->card->getCvv(),
-            ],
-            'Order'             => [
-                'OrderID'       => $this->order->id,
-                'GroupID'       => '',
-                'AddressList'   => [
-                    'Address'   => [
-                        'Type'          => 'S',
-                        'Name'          => $this->order->name,
-                        'LastName'      => '',
-                        'Company'       => '',
-                        'Text'          => '',
-                        'District'      => '',
-                        'City'          => '',
-                        'PostalCode'    => '',
-                        'Country'       => '',
-                        'PhoneNumber'   => '',
-                    ],
-                ],
-            ],
-            'Transaction'       => [
-                'Type'                  => $this->type,
-                'InstallmentCnt'        => $this->order->installment,
-                'Amount'                => $this->order->amount,
-                'CurrencyCode'          => $this->order->currency,
-                'CardholderPresentCode' => '0',
-                'MotoInd'               => 'N',
-                'Description'           => '',
-                'OriginalRetrefNum'     => '',
-            ],
-        ];
+            'APIVersion'        => self::API_VERSION,
+            'OkUrl'             => $this->order->success_url,
+            'FailUrl'           => $this->order->fail_url,
+            'HashData'          => $this->createHashData(),
+            'MerchantId'        => $this->account->getTerminalId(),
+            'CustomerId'        => $this->account->getClientId(),
+            'Username'          => $this->account->getUsername(),
+            'CardNumber'        => $this->card->getNumber(),
+            'CardExpireDateYear'=> $this->card->getExpireYear(),
+            'CardExpireDateMonth'=> $this->card->getExpireMonth(),
+            'CardCVV2'          => $this->card->getCvv(),
+            'CardHolderName'    => $this->card->getHolderName(),
+            'CardType'          => $this->card->getType(),
+            'TransactionType'   => $this->types[self::TX_POST],
+            'InstallmentCount'  => $this->order->installment,
+            'Amount'            => $this->order->amount,
+            'DisplayAmount'     => $this->order->amount,
+            'CurrencyCode'      => $this->order->currency,
+            'MerchantOrderId'   => $this->order->id,
+            'TransactionSecurity'=>'3',
+            ];
 
         return $this->createXML($requestData);
     }
