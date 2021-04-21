@@ -309,28 +309,23 @@ class KuveytPos extends AbstractGateway
     public function createRegularPostXML()
     {
         $requestData = [
-            'Mode'      => $this->getMode(),
-            'Version'   => self::API_VERSION,
-            'Terminal'  => [
-                'ProvUserID'    => $this->account->getUsername(),
-                'UserID'        => $this->account->getUsername(),
-                'HashData'      => $this->createHashData(),
-                'ID'            => $this->account->getTerminalId(),
-                'MerchantID'    => $this->account->getClientId(),
-            ],
-            'Customer'          => [
-                'IPAddress'     => $this->order->ip,
-                'EmailAddress'  => $this->order->email,
-            ],
-            'Order' => [
-                'OrderID'   => $this->order->id,
-            ],
-            'Transaction'   => [
-                'Type'              => $this->types[self::TX_POST_PAY],
-                'Amount'            => $this->order->amount,
-                'CurrencyCode'      => $this->order->currency,
-                'OriginalRetrefNum' => $this->order->ref_ret_num,
-            ],
+            'APIVersion'        => self::API_VERSION,
+            'HashData'          => $this->createHashData(),
+            'MerchantId'        => $this->account->getTerminalId(),
+            'CustomerId'        => $this->account->getClientId(),
+            'UserName'          => $this->account->getUsername(),
+            'TransactionType'   => $this->types[self::TX_PAY],
+            'InstallmentCount'  => 0,
+            'CurrencyCode'      => $this->order->currency,
+            'Amount'            => $this->order->amount,
+            'MerchantOrderId'   => $this->order->id,
+            'TransactionSecurity'=>'3',
+            'KuveytTurkVPosAdditionalData' => [
+                'AdditionalData'  =>  [
+                    'Key'   => 'MD',
+                    'Data'  => $this->order->md
+                ]
+        ]
         ];
 
         return $this->createXML($requestData);
@@ -906,7 +901,7 @@ class KuveytPos extends AbstractGateway
     {
         return (object) [
             'id' => $order['id'],
-            'ref_ret_num' => $order['ref_ret_num'],
+            'md' => $order['md'],
             'currency'      => $this->mapCurrency($order['currency']),
             'amount'      => self::amountFormat($order['amount']),
             'ip' => isset($order['ip']) ? $order['ip'] : '',
