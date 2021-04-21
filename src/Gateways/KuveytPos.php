@@ -156,7 +156,7 @@ class KuveytPos extends AbstractGateway
     public function createXML(array $data, $encoding = 'UTF-8'): string
     {
         $xml =  parent::createXML(['KuveytTurkVPosMessage' => $data], $encoding);
-        $xml = str_replace("<?xml version=\"1.0\"?>\n", '', $xml);
+        $xml = str_replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", '', $xml);
         return $xml;
     }
 
