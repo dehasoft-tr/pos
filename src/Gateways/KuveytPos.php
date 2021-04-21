@@ -314,7 +314,7 @@ class KuveytPos extends AbstractGateway
             'MerchantId'        => $this->account->getTerminalId(),
             'CustomerId'        => $this->account->getClientId(),
             'UserName'          => $this->account->getUsername(),
-            'TransactionType'   => $this->types[self::TX_PAY],
+            'TransactionType'   => $this->types[self::TX_POST_PAY],
             'InstallmentCount'  => 0,
             'CurrencyCode'      => $this->order->currency,
             'Amount'            => $this->order->amount,
