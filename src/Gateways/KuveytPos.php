@@ -298,7 +298,7 @@ class KuveytPos extends AbstractGateway
             'MerchantOrderId'   => $this->order->id,
             'TransactionSecurity'=>'3',
             ];
-        dd($this->createXML($requestData));
+        print_r($this->createXML($requestData));
         return $this->createXML($requestData);
     }
 
@@ -566,15 +566,17 @@ class KuveytPos extends AbstractGateway
      */
     public function createHashData()
     {
-        $map = [
-            $this->order->id,
-            $this->account->getTerminalId(),
-            isset($this->card) ? $this->card->getNumber() : null,
-            $this->order->amount,
-            $this->createSecurityData(),
-        ];
-
-        return strtoupper(sha1(implode('', $map)));
+        $HashedPassword = base64_encode(sha1($this->account->getPassword(),"ISO-8859-9")); //md5($Password);
+        return base64_encode(sha1($this->account->getTerminalId().$this->order->id.$this->order-amount.$this->order->success_url.$this->order->fail_url.$this->account->getUsername().$HashedPassword , "ISO-8859-9"));
+//        $map = [
+//            $this->order->id,
+//            $this->account->getTerminalId(),
+//            isset($this->card) ? $this->card->getNumber() : null,
+//            $this->order->amount,
+//            $this->createSecurityData(),
+//        ];
+//
+//        return strtoupper(sha1(implode('', $map)));
     }
 
 
