@@ -566,17 +566,19 @@ class KuveytPos extends AbstractGateway
      */
     public function createHashData()
     {
-        $HashedPassword = base64_encode(sha1($this->account->getPassword(),"ISO-8859-9")); //md5($Password);
-        return base64_encode(sha1($this->account->getTerminalId().$this->order->id.$this->order-amount.$this->order->success_url.$this->order->fail_url.$this->account->getUsername().$HashedPassword , "ISO-8859-9"));
-//        $map = [
-//            $this->order->id,
-//            $this->account->getTerminalId(),
-//            isset($this->card) ? $this->card->getNumber() : null,
-//            $this->order->amount,
-//            $this->createSecurityData(),
-//        ];
-//
-//        return strtoupper(sha1(implode('', $map)));
+        //$HashedPassword = base64_encode(sha1($this->account->getPassword(),"ISO-8859-9")); //md5($Password);
+        //return base64_encode(sha1($this->account->getTerminalId() . $this->order->id.$this->order-amount.$this->order->success_url.$this->order->fail_url.$this->account->getUsername().$HashedPassword , "ISO-8859-9"));
+        $map = [
+            $this->account->getTerminalId(),
+            $this->order->id,
+            $this->order-amount,
+            $this->order->success_url,
+            $this->order->fail_url,
+            $this->account->getUsername(),
+            $this->createSecurityData()
+        ];
+
+        return base64_encode(sha1(implode('', $map), "ISO-8859-9"));
     }
 
 
@@ -1002,9 +1004,10 @@ class KuveytPos extends AbstractGateway
 
         $map = [
             $password,
-            str_pad((int) $this->account->getTerminalId(), 9, 0, STR_PAD_LEFT),
+            //str_pad((int) $this->account->getTerminalId(), 9, 0, STR_PAD_LEFT),
         ];
+        //$HashedPassword = base64_encode(sha1($this->account->getPassword(),"ISO-8859-9")); //md5($Password);
 
-        return strtoupper(sha1(implode('', $map)));
+        return base64_encode(sha1(implode('', $map), "ISO-8859-9"));
     }
 }
