@@ -224,8 +224,11 @@ class KuveytPos extends AbstractGateway
     public function send($contents)
     {
         $client = new Client();
-
-        $response = $client->request('POST', $this->getApiURL(), [
+        $url = $this->getApiURL();
+        if ($this->types[self::TX_POST_PAY] === $this->type) {
+            $url = $this->get3DGatewayURL();
+        }
+        $response = $client->request('POST', $url, [
             'body'  => $contents,
         ], ['curl' => [
             CURLOPT_SSLVERSION => 6
@@ -340,7 +343,7 @@ class KuveytPos extends AbstractGateway
         ]
         ];
 
-        return $this->createXML($requestData);
+        return $this->createPostXML($requestData);
     }
 
     /**
