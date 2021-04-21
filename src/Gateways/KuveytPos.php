@@ -574,15 +574,11 @@ class KuveytPos extends AbstractGateway
             $this->account->getTerminalId(),
             $this->order->id,
             $this->order->amount,
-            $this->order->success_url,
-            $this->order->fail_url,
-            $this->type,
-            $this->order->installment,
-            $this->account->getStoreKey(),
-            $this->createSecurityData(),
+            $this->account->getUsername(),
+            $this->createSecurityData()
         ];
 
-        return strtoupper(sha1(implode('', $map)));
+        return base64_encode(sha1(implode('', $map), "ISO-8859-9"));
     }
 
     /**
