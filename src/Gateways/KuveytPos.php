@@ -571,7 +571,7 @@ class KuveytPos extends AbstractGateway
         $map = [
             $this->account->getTerminalId(),
             $this->order->id,
-            $this->order-amount,
+            $this->order->amount,
             $this->order->success_url,
             $this->order->fail_url,
             $this->account->getUsername(),
