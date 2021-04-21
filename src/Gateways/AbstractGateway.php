@@ -239,6 +239,7 @@ abstract class AbstractGateway implements PosInterface
     public function XMLStringToObject($data)
     {
         $encoder = new XmlEncoder();
+        dd($data);
         $xml = $encoder->decode($data, 'xml');
 
         return (object) json_decode(json_encode($xml));
