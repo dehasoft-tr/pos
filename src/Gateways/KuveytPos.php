@@ -87,7 +87,7 @@ class KuveytPos extends AbstractGateway
      * @var array
      */
     protected $types = [
-        self::TX_PAY => 'sales',
+        self::TX_PAY => 'Sale',
         self::TX_PRE_PAY => 'preauth',
         self::TX_POST_PAY => 'postauth',
         self::TX_CANCEL => 'void',
@@ -103,7 +103,7 @@ class KuveytPos extends AbstractGateway
      * @var array
      */
     protected $currencies = [
-        'TRY'       => 949,
+        'TRY'       => 0949,
         'USD'       => 840,
         'EUR'       => 978,
         'GBP'       => 826,
@@ -288,6 +288,7 @@ class KuveytPos extends AbstractGateway
             'CardCVV2'          => $this->card->getCvv(),
             'CardHolderName'    => $this->card->getHolderName(),
             'CardType'          => $this->card->getType(),
+            'BatchID'           => 0,
             'TransactionType'   => $this->types[self::TX_PAY],
             'InstallmentCount'  => $this->order->installment,
             'Amount'            => $this->order->amount,
