@@ -904,8 +904,8 @@ class KuveytPos extends AbstractGateway
             'md' => $order['md'],
             'currency'      => $this->mapCurrency($order['currency']),
             'amount'      => self::amountFormat($order['amount']),
-            'ip' => isset($order['ip']) ? $order['ip'] : '',
-            'email' => isset($order['email']) ? $order['email'] : '',
+            'success_url' => $order['success_url'],
+            'fail_url' => $order['fail_url'],
         ];
     }
 
