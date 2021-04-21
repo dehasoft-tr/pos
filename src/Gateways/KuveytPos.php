@@ -325,7 +325,7 @@ class KuveytPos extends AbstractGateway
     {
         $requestData = [
             'APIVersion'        => self::API_VERSION,
-            'HashData'          => $this->createHashData(),
+            'HashData'          => $this->create3DHash(),
             'MerchantId'        => $this->account->getTerminalId(),
             'CustomerId'        => $this->account->getClientId(),
             'UserName'          => $this->account->getUsername(),
