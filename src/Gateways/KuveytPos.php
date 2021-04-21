@@ -103,7 +103,7 @@ class KuveytPos extends AbstractGateway
      * @var array
      */
     protected $currencies = [
-        'TRY'       => 0949,
+        'TRY'       => 949,
         'USD'       => 840,
         'EUR'       => 978,
         'GBP'       => 826,
@@ -158,6 +158,7 @@ class KuveytPos extends AbstractGateway
         $xml =  parent::createXML(['KuveytTurkVPosMessage' => $data], $encoding);
         $xml = str_replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", '', $xml);
         $xml = str_replace("<KuveytTurkVPosMessage>", "<KuveytTurkVPosMessage xmlns:xsi=\"http://www.w3.org/2001/XMLSchemainstance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">", $xml);
+        $xml = str_replace("\n", "", $xml);
         return $xml;
     }
 
