@@ -103,12 +103,12 @@ class KuveytPos extends AbstractGateway
      * @var array
      */
     protected $currencies = [
-        'TRY'       => 949,
-        'USD'       => 840,
-        'EUR'       => 978,
-        'GBP'       => 826,
-        'JPY'       => 392,
-        'RUB'       => 643,
+        'TRY'       => '0949',
+        'USD'       => '0840',
+        'EUR'       => '0978',
+        'GBP'       => '0826',
+        'JPY'       => '0392',
+        'RUB'       => '0643',
     ];
 
     /**
