@@ -20,7 +20,7 @@ class KuveytPos extends AbstractGateway
     /**
      * API version
      */
-    const API_VERSION = 'v0.01';
+    const API_VERSION = '1.0.0';
 
     /**
      * @const string
@@ -283,7 +283,7 @@ class KuveytPos extends AbstractGateway
             'CardCVV2'          => $this->card->getCvv(),
             'CardHolderName'    => $this->card->getHolderName(),
             'CardType'          => $this->card->getType(),
-            'TransactionType'   => $this->types[self::TX_POST],
+            'TransactionType'   => $this->types[self::TX_PAY],
             'InstallmentCount'  => $this->order->installment,
             'Amount'            => $this->order->amount,
             'DisplayAmount'     => $this->order->amount,
