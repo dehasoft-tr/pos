@@ -298,7 +298,7 @@ class KuveytPos extends AbstractGateway
             'MerchantOrderId'   => $this->order->id,
             'TransactionSecurity'=>'3',
             ];
-        dd($this->createXML($requestData));
+        //dd($this->createXML($requestData));
         return $this->createXML($requestData);
     }
 
