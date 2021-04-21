@@ -207,13 +207,13 @@ class KuveytPos extends AbstractGateway
      */
     public function send($contents)
     {
-        $client = new Client(['curl' => [
-                    CURLOPT_SSLVERSION => 6
-                ]]);
+        $client = new Client();
 
         $response = $client->request('POST', $this->getApiURL(), [
             'body'  => $contents,
-        ]);
+        ], ['curl' => [
+            CURLOPT_SSLVERSION => 6
+        ]]);
 
         $this->data = $this->XMLStringToObject($response->getBody()->getContents());
 
