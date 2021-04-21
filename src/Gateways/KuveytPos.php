@@ -157,7 +157,7 @@ class KuveytPos extends AbstractGateway
     {
         $xml =  parent::createXML(['KuveytTurkVPosMessage' => $data], $encoding);
         $xml = str_replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", '', $xml);
-        $xml = str_replace("<KuveytTurkVPosMessage>\n", "<KuveytTurkVPosMessage xmlns:xsi=http://www.w3.org/2001/XMLSchemainstance xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n", $xml);
+        $xml = str_replace("<KuveytTurkVPosMessage>", "<KuveytTurkVPosMessage xmlns:xsi=http://www.w3.org/2001/XMLSchemainstance xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">", $xml);
         return $xml;
     }
 
