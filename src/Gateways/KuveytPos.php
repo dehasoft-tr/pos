@@ -294,7 +294,7 @@ class KuveytPos extends AbstractGateway
             'TransactionSecurity'=>'3',
             ];
 
-        return $this->createXML($requestData);
+        return $this->createXML($requestData, );
     }
 
     /**
