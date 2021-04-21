@@ -165,6 +165,18 @@ class KuveytPos extends AbstractGateway
     /**
      * @inheritDoc
      */
+    public function createPostXML(array $data, $encoding = 'UTF-8'): string
+    {
+        $xml =  parent::createXML(['KuveytTurkVPosMessage' => $data], $encoding);
+        $xml = str_replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", '', $xml);
+        $xml = str_replace("<KuveytTurkVPosMessage>", "<KuveytTurkVPosMessage xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">", $xml);
+        $xml = str_replace("\n", "", $xml);
+        return $xml;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function make3DPayment()
     {
         $request = Request::createFromGlobals();
@@ -314,7 +326,7 @@ class KuveytPos extends AbstractGateway
             'MerchantId'        => $this->account->getTerminalId(),
             'CustomerId'        => $this->account->getClientId(),
             'UserName'          => $this->account->getUsername(),
-            'TransactionType'   => $this->types[self::TX_POST_PAY],
+            'TransactionType'   => $this->types[self::TX_PAY],
             'InstallmentCount'  => 0,
             'CurrencyCode'      => $this->order->currency,
             'Amount'            => $this->order->amount,
