@@ -316,7 +316,7 @@ class KuveytPos extends AbstractGateway
             'UserName'          => $this->account->getUsername(),
             'TransactionType'   => $this->types[self::TX_PAY],
             'InstallmentCount'  => 0,
-            'CurrencyCode'      => $this->order->currency,
+            //'CurrencyCode'      => $this->order->currency,
             'Amount'            => $this->order->amount,
             'MerchantOrderId'   => $this->order->id,
             'TransactionSecurity'=>'3',
