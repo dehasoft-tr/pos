@@ -218,8 +218,8 @@ class KuveytPos extends AbstractGateway
         ], ['curl' => [
             CURLOPT_SSLVERSION => 6
         ]]);
-        dd($response->getBody()->getContents());
-        $this->data = $this->XMLStringToObject($response->getBody()->getContents());
+
+        //$this->data = $this->XMLStringToObject($response->getBody()->getContents());
         $this->data = $response->getBody()->getContents();
 
         return $this;
