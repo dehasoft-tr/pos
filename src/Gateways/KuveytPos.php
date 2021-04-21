@@ -281,7 +281,7 @@ class KuveytPos extends AbstractGateway
             'HashData'          => $this->createHashData(),
             'MerchantId'        => $this->account->getTerminalId(),
             'CustomerId'        => $this->account->getClientId(),
-            'Username'          => $this->account->getUsername(),
+            'UserName'          => $this->account->getUsername(),
             'CardNumber'        => $this->card->getNumber(),
             'CardExpireDateYear'=> $this->card->getExpireYear(),
             'CardExpireDateMonth'=> $this->card->getExpireMonth(),
@@ -296,7 +296,7 @@ class KuveytPos extends AbstractGateway
             'MerchantOrderId'   => $this->order->id,
             'TransactionSecurity'=>'3',
             ];
-        dd($this->createXML($requestData));
+        //dd($this->createXML($requestData));
         return $this->createXML($requestData);
     }
 
