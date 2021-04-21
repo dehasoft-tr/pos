@@ -291,14 +291,14 @@ class KuveytPos extends AbstractGateway
             'CardType'          => $this->card->getType(),
             'BatchID'           => 0,
             'TransactionType'   => $this->types[self::TX_PAY],
-            'InstallmentCount'  => $this->order->installment,
+            'InstallmentCount'  => 0,
             'Amount'            => $this->order->amount,
             'DisplayAmount'     => $this->order->amount,
             'CurrencyCode'      => $this->order->currency,
             'MerchantOrderId'   => $this->order->id,
             'TransactionSecurity'=>'3',
             ];
-        //dd($this->createXML($requestData));
+        dd($this->createXML($requestData));
         return $this->createXML($requestData);
     }
 
