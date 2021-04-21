@@ -972,12 +972,12 @@ class KuveytPos extends AbstractGateway
             $password = $this->account->getPassword();
         }
 
-        $map = [
-            $password,
-            //str_pad((int) $this->account->getTerminalId(), 9, 0, STR_PAD_LEFT),
-        ];
-        //$HashedPassword = base64_encode(sha1($this->account->getPassword(),"ISO-8859-9")); //md5($Password);
+//        $map = [
+//            $password
+//            //str_pad((int) $this->account->getTerminalId(), 9, 0, STR_PAD_LEFT),
+//        ];
+//        //$HashedPassword = base64_encode(sha1($this->account->getPassword(),"ISO-8859-9")); //md5($Password);
 
-        return base64_encode(sha1(implode('', $map), "ISO-8859-9"));
+        return base64_encode(sha1($password, "ISO-8859-9"));
     }
 }
