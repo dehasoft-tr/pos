@@ -219,7 +219,8 @@ class KuveytPos extends AbstractGateway
             CURLOPT_SSLVERSION => 6
         ]]);
 
-        $this->data = $this->XMLStringToObject($response->getBody()->getContents());
+        //$this->data = $this->XMLStringToObject($response->getBody()->getContents());
+        $this->data = $response->getBody()->getContents();
 
         return $this;
     }
@@ -340,57 +341,27 @@ class KuveytPos extends AbstractGateway
     public function create3DPaymentXML($responseData)
     {
         $requestData = [
-            'Mode'              => $this->getMode(),
-            'Version'           => self::API_VERSION,
-            'ChannelCode'       => '',
-            'Terminal'          => [
-                'ProvUserID'    => $this->account->getUsername(),
-                'UserID'        => $this->account->getUsername(),
-                'HashData'      => $this->createHashData(),
-                'ID'            => $this->account->getTerminalId(),
-                'MerchantID'    => $this->account->getClientId(),
-            ],
-            'Customer'          => [
-                'IPAddress'     => $responseData['customeripaddress'],
-                'EmailAddress'  => $responseData['customeremailaddress'],
-            ],
-            'Card'              => [
-                'Number'        => '',
-                'ExpireDate'    => '',
-                'CVV2'          => '',
-            ],
-            'Order'             => [
-                'OrderID'       => $responseData['orderid'],
-                'GroupID'       => '',
-                'AddressList'   => [
-                    'Address'   => [
-                        'Type'          => 'B',
-                        'Name'          => $this->order->name,
-                        'LastName'      => '',
-                        'Company'       => '',
-                        'Text'          => '',
-                        'District'      => '',
-                        'City'          => '',
-                        'PostalCode'    => '',
-                        'Country'       => '',
-                        'PhoneNumber'   => '',
-                    ],
-                ],
-            ],
-            'Transaction'       => [
-                'Type'                  => $responseData['txntype'],
-                'InstallmentCnt'        => $this->order->installment,
-                'Amount'                => $responseData['txnamount'],
-                'CurrencyCode'          => $responseData['txncurrencycode'],
-                'CardholderPresentCode' => '13',
-                'MotoInd'               => 'N',
-                'Secure3D'              => [
-                    'AuthenticationCode'    => $responseData['cavv'],
-                    'SecurityLevel'         => $responseData['eci'],
-                    'TxnID'                 => $responseData['xid'],
-                    'Md'                    => $responseData['md'],
-                ],
-            ],
+            'APIVersion'        => self::API_VERSION,
+            'OkUrl'             => $this->order->success_url,
+            'FailUrl'           => $this->order->fail_url,
+            'HashData'          => $this->createHashData(),
+            'MerchantId'        => $this->account->getTerminalId(),
+            'CustomerId'        => $this->account->getClientId(),
+            'UserName'          => $this->account->getUsername(),
+            'CardNumber'        => $this->card->getNumber(),
+            'CardExpireDateYear'=> $this->card->getExpireYear(),
+            'CardExpireDateMonth'=> $this->card->getExpireMonth(),
+            'CardCVV2'          => $this->card->getCvv(),
+            'CardHolderName'    => $this->card->getHolderName(),
+            'CardType'          => $this->card->getType(),
+            'BatchID'           => 0,
+            'TransactionType'   => $this->types[self::TX_PAY],
+            'InstallmentCount'  => 0,
+            'Amount'            => $this->order->amount,
+            'DisplayAmount'     => $this->order->amount,
+            'CurrencyCode'      => $this->order->currency,
+            'MerchantOrderId'   => $this->order->id,
+            'TransactionSecurity'=>'3',
         ];
 
         return $this->createXML($requestData);
