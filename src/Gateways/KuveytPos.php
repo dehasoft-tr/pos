@@ -299,9 +299,7 @@ class KuveytPos extends AbstractGateway
             'MerchantOrderId'   => $this->order->id,
             'TransactionSecurity'=>'3',
             ];
-//        $HashedPassword = base64_encode(sha1($this->account->getPassword(),"ISO-8859-9")); //md5($Password);
-//        $hash = base64_encode(sha1("496"."8650"."http://localhost:44785/Home/Success"."http://localhost:44785/Home/Fail"."apiuser"."c77dFssAnYSy6O2MJo+5tMYtGVc=" , "ISO-8859-9"));
-//        dd($hash . "\n" . $this->createHashData());
+
         return $this->createXML($requestData);
     }
 
