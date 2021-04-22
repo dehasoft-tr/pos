@@ -739,7 +739,7 @@ class KuveytPos extends AbstractGateway
 
         return (object) [
             'id'                => isset($responseData->Stan) ? $this->printData($responseData->Stan) : null,
-            'order_id'          => isset($responseData->OrderID) ? $this->printData($responseData->OrderID) : null,
+            'order_id'          => isset($responseData->OrderId) ? $this->printData($responseData->OrderId) : null,
             'group_id'          => isset($responseData->VPosMessage->BatchID) ? $this->printData($responseData->VPosMessage->BatchID) : null,
             'trans_id'          => isset($responseData->Stan) ? $this->printData($responseData->Stan) : null,
             'response'          => isset($responseData->ResponseMessage) ? $this->printData($responseData->ResponseMessage) : null,
