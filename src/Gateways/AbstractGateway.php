@@ -329,13 +329,11 @@ abstract class AbstractGateway implements PosInterface
             $contents = $this->createRegularPaymentXML();
         } elseif ($this->types[self::TX_POST_PAY] === $this->type) {
             $contents = $this->createRegularPostXML();
-            //dd($contents);
+            dd($this->data);
+            $this->response = (object) $this->mapPaymentResponse($this->data);
         }
 
         $this->send($contents);
-        dd($this->data);
-        $this->response = (object) $this->mapPaymentResponse($this->data);
-
         return $this;
     }
 
