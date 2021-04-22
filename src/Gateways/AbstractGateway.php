@@ -333,7 +333,7 @@ abstract class AbstractGateway implements PosInterface
         }
 
         $this->send($contents);
-
+        dd($this->data);
         $this->response = (object) $this->mapPaymentResponse($this->data);
 
         return $this;
