@@ -755,7 +755,7 @@ class KuveytPos extends AbstractGateway
             'status_detail'     => $this->getStatusDetail(),
             'error_code'        => isset($responseData->ResponseCode) ? $this->printData($responseData->ResponseCode) : null,
             'error_message'     => isset($responseData->ResponseMessage) ? $this->printData($responseData->ResponseMessage) : null,
-            'all'               => $responseData->VPosMessage,
+            'all'               => $responseData,
         ];
     }
 
