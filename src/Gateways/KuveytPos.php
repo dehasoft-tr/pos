@@ -738,26 +738,24 @@ class KuveytPos extends AbstractGateway
         }
 
         return (object) [
-            'id'                => isset($responseData->Transaction->AuthCode) ? $this->printData($responseData->Transaction->AuthCode) : null,
-            'order_id'          => isset($responseData->Order->OrderID) ? $this->printData($responseData->Order->OrderID) : null,
-            'group_id'          => isset($responseData->Order->GroupID) ? $this->printData($responseData->Order->GroupID) : null,
-            'trans_id'          => isset($responseData->Transaction->AuthCode) ? $this->printData($responseData->Transaction->AuthCode) : null,
-            'response'          => isset($responseData->Transaction->Response->Message) ? $this->printData($responseData->Transaction->Response->Message) : null,
+            'id'                => isset($responseData->Stan) ? $this->printData($responseData->Stan) : null,
+            'order_id'          => isset($responseData->OrderID) ? $this->printData($responseData->OrderID) : null,
+            'group_id'          => isset($responseData->VPosMessage->BatchID) ? $this->printData($responseData->VPosMessage->BatchID) : null,
+            'trans_id'          => isset($responseData->Stan) ? $this->printData($responseData->Stan) : null,
+            'response'          => isset($responseData->ResponseMessage) ? $this->printData($responseData->ResponseMessage) : null,
             'transaction_type'  => $this->type,
             'transaction'       => $this->type,
-            'auth_code'         => isset($responseData->Transaction->AuthCode) ? $this->printData($responseData->Transaction->AuthCode) : null,
-            'host_ref_num'      => isset($responseData->Transaction->RetrefNum) ? $this->printData($responseData->Transaction->RetrefNum) : null,
-            'ret_ref_num'       => isset($responseData->Transaction->RetrefNum) ? $this->printData($responseData->Transaction->RetrefNum) : null,
-            'hash_data'         => isset($responseData->Transaction->HashData) ? $this->printData($responseData->Transaction->HashData) : null,
+            'auth_code'         => isset($responseData->Stan) ? $this->printData($responseData->Stan) : null,
+            'host_ref_num'      => isset($responseData->RRN) ? $this->printData($responseData->RRN) : null,
+            'ret_ref_num'       => isset($responseData->RRN) ? $this->printData($responseData->RRN) : null,
+            'hash_data'         => isset($responseData->HashData) ? $this->printData($responseData->HashData) : null,
             'proc_return_code'  => $this->getProcReturnCode(),
             'code'              => $this->getProcReturnCode(),
             'status'            => $status,
             'status_detail'     => $this->getStatusDetail(),
-            'error_code'        => isset($responseData->Transaction->Response->Code) ? $this->printData($responseData->Transaction->Response->Code) : null,
-            'error_message'     => isset($responseData->Transaction->Response->ErrorMsg) ? $this->printData($responseData->Transaction->Response->ErrorMsg) : null,
-            'campaign_url'      => isset($responseData->Transaction->CampaignChooseLink) ? $this->printData($responseData->Transaction->CampaignChooseLink) : null,
-            'extra'             => isset($responseData->Extra) ? $responseData->Extra : null,
-            'all'               => $responseData,
+            'error_code'        => isset($responseData->ResponseCode) ? $this->printData($responseData->ResponseCode) : null,
+            'error_message'     => isset($responseData->ResponseMessage) ? $this->printData($responseData->ResponseMessage) : null,
+            'all'               => $responseData->VPosMessage,
         ];
     }
 
@@ -869,7 +867,7 @@ class KuveytPos extends AbstractGateway
      */
     protected function getProcReturnCode()
     {
-        return isset($this->data->Transaction->Response->Code) ? (string) $this->data->Transaction->Response->Code : null;
+        return isset($this->data->ResponseCode) ? (string) $this->data->ResponseCode : null;
     }
 
     /**
