@@ -11,7 +11,7 @@ use Mews\Pos\Entity\Account\PosNetAccount;
 use Mews\Pos\Entity\Account\KuveytPosAccount;
 use Mews\Pos\Exceptions\MissingAccountInfoException;
 use Mews\Pos\Gateways\PayForPos;
-
+use Mews\Pos\Entity\Account\VakifBankAccount;
 class AccountFactory
 {
 
@@ -118,6 +118,21 @@ class AccountFactory
     {
         if ('regular' !== $model && null === $storeKey) {
             throw new MissingAccountInfoException("$model requires storeKey!");
+        }
+    }
+    public static function createVakifBankAccount(string $bank, string $clientId, string $password, string $terminalId, string $model = 'regular', $merchantType = 0, $subMerchantId = null): VakifBankAccount
+    {
+        self::checkVakifBankMerchantType($merchantType, $subMerchantId);
+
+        return new VakifBankAccount($bank, $model, $clientId, $password, $terminalId, $merchantType, $subMerchantId);
+    }
+    private static function checkVakifBankMerchantType(int $merchantType, ?string $subMerchantId)
+    {
+        if (2 === $merchantType && empty($subMerchantId)) {
+            throw new MissingAccountInfoException("SubMerchantId is required for sub branches!");
+        }
+        if (!in_array($merchantType, VakifBankAccount::getMerchantTypes())) {
+            throw new MissingAccountInfoException("Invalid MerchantType!");
         }
     }
 }
